@@ -20,3 +20,31 @@ let quadrado2 = {
     return this.lados * lado;  }
 }
 
+console.log(quadrado2.perimetro(4))
+
+
+
+// 01 Criar um objeto senai
+// 02 acessar os dados chave
+// 03 Incrementar dados/alerar o objeto
+// 04 Excluir um valor do objeto
+
+const senai = {
+    codigo: 603,
+    cidade: 'Araraquara',
+
+};
+
+
+console.log('--------------------------------');
+senai.telefone = 1633035252;
+senai.endereco = {
+    rua: 'Hugo Negrini',
+    bairro: 'Quitandinha',
+    numero: '60'
+};
+senai.alunos = ['SESI', 'EEBA', 'COMUNIDADE'];
+senai.alunos[2] = 'Tecnico'
+senai.endereco.numero = 62;
+console.log(senai)
+
