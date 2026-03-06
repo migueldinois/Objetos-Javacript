@@ -7,5 +7,7 @@ const senai = {
     }
 }
 
+senai.codigo = 600;
+senai.cidade = 'Matão'
 console.log(senai.descreverEscola())
 
