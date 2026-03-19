@@ -1,14 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Objetos Javascript</title>
 </head>
-<body>
+<style>
+    .sorteio {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        flex-direction: column;
+        height: 100vh;
+    }
 
-    <!-- <script src="./01funcoes.js"></script>
-    <script src="./02arrow-function.js"></script> -->
-    <script src="./exercicio-escolas.js"></script>
+</style>
+
+<body>
+    <div class="sorteio">
+        <h1>Sorteio de Números Aleatórios</h1>
+
+        <div class="sorteio__inputs">
+            <form class="sorteio__form">
+                <label for="min">Valor minimo: </label>
+                <input type="text" name="min" class="sorteio__input--min">
+                <label for="min">Valor maximo: </label>
+                <input type="text" name="max" class="sorteio__input--max">
+
+        </div>
+        <div class="sorteio__acoes">
+
+            <input type="submit" value="Sortear" class="sorteio__botao--sortear">
+            <input type="reset" value="Novo Sorteio" class="sorteio__botao--reset">
+
+        </div>
+        </form>
+        <div class="sorteio__resultado">
+            <p class="sorteio__texto--resultado"></p>
+        </div>
+
+    </div>
+    <script>
+        // Pegando Elementos 
+        const inputMin = document.querySelector('.sorteio__input--min');
+        const inputMax = document.querySelector('.sorteio__input--max');
+        const formSorteio = document.querySelector('.sorteio__form');
+        const mensagemResultado = document.querySelector('.sorteio__texto--resultado');
+
+        const validarInputs = () => {
+            if (inputMin.value == '' || inputMax.value == '') {
+                mensagemResultado.textContent = 'Você deve preencher todos os campos'
+                return false
+
+            } else if (isNaN(inputMin.value || isNaN(inputMax.value))){
+                mensagemResultado.textContent = 'Digite apenas numeros'
+                return false
+
+            } else if (inputMin.value >= inputMax.value) {
+                mensagemResultado.textContent = 'O Valor Minimo deve ser menor que o Valor Maximo'
+                return false
+            } 
+            else {
+                return true
+            }
+        };
+
+        const gerarNumeroAleatorio = (min, max) => {
+            return Math.floor(Math.random() * (max - min + 1)) + min; 
+        };
+
+        formSorteio.addEventListener('submit', (event) => {
+            // Esse event preventDefault, é para evitar o submit recarregar a pagina
+            event.preventDefault(); 
+            if (validarInputs()) {
+                valorInputMin = Number(inputMin.value.trim());
+                valorInputMax = Number(inputMax.value.trim());
+                const numeroSorteado = gerarNumeroAleatorio(valorInputMin, valorInputMax);
+                console.log(inputMin.value,inputMax.value, numeroSorteado);
+                mensagemResultado.style.display = 'flex'
+                mensagemResultado.textContent = `Valor Sorteado: ${numeroSorteado}`;
+
+            };
+        });
+
+
+        formSorteio.addEventListener('reset', (event) => {
+            mensagemResultado.textContent = ''
+
+        })
+
+
+
+
+    </script>
 </body>
+
 </html>
