@@ -16,6 +16,39 @@
         height: 100vh;
     }
 
+    .sorteio__form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sorteio__form label{
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .sorteio__form input {
+        padding: 5px;
+        border-radius: 10px;
+        border: 1px solid black;
+        width: 300px;
+    }
+    .sorteio__acoes {
+        width: 310px;
+        display: flex;
+        justify-content: space-between;
+
+    }
+
+    .sorteio__acoes input {
+        padding: 10px;
+        border: 0px;
+    }
+    .sorteio__acoes input:hover {
+        padding: 10px;
+        
+    }
+    
+
 </style>
 
 <body>
@@ -88,6 +121,7 @@
 
         formSorteio.addEventListener('reset', (event) => {
             mensagemResultado.textContent = ''
+            inputMin.focus();
 
         })
 
