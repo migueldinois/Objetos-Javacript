@@ -42,13 +42,16 @@ function adicionarHistorico(numeroSorteado) {
     }
 }
 
+// Atualizacao do SLider
 const atualizarValorSlider = () => {
     spanValorMin.textContent = inputMin.value
     spanValorMax.textContent = inputMax.value
 }
-
 inputMin.addEventListener('input', atualizarValorSlider)
 inputMax.addEventListener('input', atualizarValorSlider)
+atualizarValorSlider()
+// Fim da atualizacao do slider
+
 
 buttonSortear.addEventListener('click', () => {
     if (validarInputs()){
@@ -66,5 +69,4 @@ buttonSortear.addEventListener('click', () => {
 )
 
 
-atualizarValorSlider()
 

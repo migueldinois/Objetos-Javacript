@@ -14,18 +14,94 @@ const botaoLimparHistorico = document.querySelector('.sorteador__limpar')
 
 const mensagem = document.querySelector('.area__mensagem')
 
+historicoNumeros = []
 
 
+
+
+const validarInputs = () => {
+    if (sliderMin.value >= sliderMax.value) {
+        mensagem.textContent = 'O Valor Minimo deve ser menor que o Valor Maximo'
+        return false
+    }
+    else {
+        return true
+    }
+};
+
+
+
+// COMECO LOGICA ATUALIZAR VALOR SLIDE
 const atualizarValorSlider = () => {
-    spanValorMin.textContent = inputMin.value
-    spanValorMax.textContent = inputMax.value
+    spanValorMin.textContent = sliderMin.value
+    spanValorMax.textContent = sliderMax.value
 }
-
 sliderMin.addEventListener('input', atualizarValorSlider)
 sliderMax.addEventListener('input', atualizarValorSlider)
 atualizarValorSlider()
+// FIM LOGICA ATUALIZAR VALOR SLIDE
 
-const gerarNumeroAleatorio = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min; 
+const sortearNumero = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+
+const atualizarTexto = (elemento, valor) => {
+    elemento.textContent = valor;
+};
+
+
+const adicionarHistorico = (numeroSorteado) => {
+
+    const itemHistorico = document.createElement('li');
+    itemHistorico.textContent = numeroSorteado
+
+    itemHistorico.addEventListener('click', () => {
+        // Copiando o numero ao clicar
+        navigator.clipboard.writeText(numeroSorteado)
+    });
+
+    return itemHistorico
+};
+
+const atualizandoListaHistorico = (lista, item, limite) => {
+    // Adiciona no primeiro da lista 
+    lista.unshift(item); 
+    // verifica se o tanto de itens da lista é maior que o limite
+    if (lista.length > limite) {
+        // se for, vai tirar o ultimo item da lista
+        lista.pop(); 
+    }
+};
+
+
+const limparHistorico = () => {
+    if (confirm('Deseja realmente limpar o historico de sorteios?')){
+        listaNumeros.textContent = '';
+        elementoNumero.textContent = '0';
+    }
+}
+
+botaoLimparHistorico.addEventListener('click', limparHistorico)
+
+botaoSortear.addEventListener('click', () => {
+    if (validarInputs()) {
+        const valorMin = Number(sliderMin.value);
+        const valorMax = Number(sliderMax.value);
+        const numeroSorteado = sortearNumero(valorMin, valorMax);
+        
+        mensagem.textContent = ''
+
+        atualizarTexto(elementoNumero,numeroSorteado)
+        
+        atualizandoListaHistorico(historicoNumeros, numeroSorteado, quantidadeNumerosRecentes);
+
+        listaNumeros.innerHTML = ''; 
+
+        historicoNumeros.forEach((numero) => {
+            const itemListaHistorico = adicionarHistorico(numero);
+            listaNumeros.appendChild(itemListaHistorico);
+        });
+    }
+});
 
