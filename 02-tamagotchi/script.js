@@ -1,4 +1,6 @@
 const pet = {
-    nome: undefined
-
+    nome: undefined,
+    fome: 50,
+    felicidade: 50,
+    energia: 100
 }
