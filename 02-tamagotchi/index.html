@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="./style.css">
     <script defer src="./script.js"></script>
 </head>
+
 <body class="tamagotchi">
     <header class="tamagotchi__header">
         <h1 class="tamagotchi__title">🐾 Meu Pet Virtual</h1>
@@ -15,18 +17,26 @@
     <main class="tamagotchi__main">
         <section class="tamagotchi__display display">
             <div class="display__image">🐱</div>
-            <h2 class="display__nome">Nome do Pet</h2>
-            
+            <h2 class="display__nome">NOME DO PET</h2>
+
+
             <div class="display__status">
                 <p>Fome: <span id="valor-fome">50</span>%</p>
-                <div class="barra"><div id="barra-fome" style="width: 50%;"></div></div>
-                
+                <div class="barra">
+                    <div id="barra-fome" style="width: 50%;"></div>
+                </div>
+
                 <p>Felicidade: <span id="valor-felicidade">50</span>%</p>
-                <div class="barra"><div id="barra-felicidade" style="width: 50%;"></div></div>
+                <div class="barra">
+                    <div id="barra-felicidade" style="width: 50%;"></div>
+                </div>
             </div>
         </section>
 
         <section class="tamagotchi__acoes acoes">
+            <input type="text" class="display__input" id="input-nome" placeholder="Defina o nome do seu pet">
+            <button class="acoes__button" id="btn-definir-nome">Definir nome</button>
+
             <button class="acoes__button" id="btn-alimentar">🥛 Alimentar</button>
             <button class="acoes__button" id="btn-brincar">🧶 Brincar</button>
             <button class="acoes__button" id="btn-status">Status</button>
@@ -41,4 +51,5 @@
         <p>Objetos em JavaScript</p>
     </footer>
 </body>
+
 </html>
