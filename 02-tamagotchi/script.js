@@ -1,0 +1,4 @@
+const pet = {
+    nome: undefined
+
+}
