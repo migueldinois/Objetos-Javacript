@@ -3,27 +3,38 @@ que corresponde ao seletor CSS especificado */
 
 
 // Elemento do controle deslizante
-const controleDeslizante = document.querySelector('.')
+const controleDeslizante = document.querySelector('.app-pwd__slider')
 // Botão de gerar senha
-const btnGerarSenha = document.querySelector('.')
+const btnGerarSenha = document.querySelector('.app-pwd__button')
 //Botão para limpar o histórico de senhas
-const btnLimparHistorico = document.querySelector('.')
+const btnLimparHistorico = document.querySelector('.app-pwd__button--clear')
 // Elemento que mostra o tamanho da senha
-const tamanhoSenha = document.querySelector('.')
+const tamanhoSenha = document.querySelector('.app-pwd__size')
 // Elemento que exibe a senha gerada
-const displaySenha = document.querySelector('.')
+const displaySenha = document.querySelector('.app-pwd__output')
 // Container da senha gerada
-const containerSenha = document.querySelector('.')
+const containerSenha = document.querySelector('.app-pwd__result')
 // Elemento de saudação
-const displaySaudacao = document.querySelector('.')
+const displaySaudacao = document.querySelector('.app-pwd__welcome')
 // Elemento de data e hora
+const elementoDataeHora = document.querySelector('.app-pwd__datetime')
 
 
-/* Objeto que contém os conjuntos de caracteres possíveis para a geração de senha
 
+// Objeto que contém os conjuntos de caracteres possíveis para a geração de senha
+
+const charsets =  {
+    numbers: [0,1,2,3,4,5,6,7,8,9],
+    letter: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+        'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 'r', 't', 'u', 'v',
+        'w', 'x', 'y', 'z'],
+    charactersSpecials: ['!', '@', '#', '$', '%', '&', '*']
+}
 
 /* Variáveis para armazenar a senha atual e o histórico de senhas */
 
+let newPassword = []
+let passwordHistory = []
 
 /* Função que retorna uma saudação baseada na hora atual do dia
 
@@ -35,36 +46,70 @@ const displaySaudacao = document.querySelector('.')
    * 18:00 - 23:59 -> Boa noite
    */
 
+//   greeting = saudacao
+  const getGreeting =  () => {
+    // Criando objeto data
+    const now = new Date()
+    const hours = now.getHours()
+    
+    if (hours < 12) {return 'Bom dia'}
+    if (hours < 18 ) {return 'Boa tarde'}
+    if (hours > 18) {return 'Boa noite'}
+  }
 
 
 /* Função que formata a data e hora atual em um formato legível
 Utiliza vários métodos do objeto Date para obter os componentes da data */
 
-/** Cria um objeto com a data e hora atual */
+const formatDateTime = () => {
 
+// Cria um objeto com a data e hora atual */
+   const now = new Date()
+   const date = now.getDate()
+   const hours = now.getHours()
+//  Formata os minutos para sempre ter dois numeros com o 0 na frente entre 0 e 9
+   const minutes = now.getMinutes().toString().padStart(2, '0')
+   const seconds = now.getSeconds()
+// Array com os nomes dos dias da semana 
+   const daysWeek = [
+    'Domingo',
+    'Segunda-Feira',
+    'Terça-feira',
+    'Quarta-feira',
+    'Quinta-feira',
+    'Sexta-feira',
+    'Sábado'
+   ]
 
-/** Array com os nomes dos dias da semana */
-
+   
 /** Obtém o dia da semana */
-
-
+   const dayWeek = daysWeek[now.getDay()]
 /** Dados da data */
-
-
-/**
- * Hora como número (para lógica, se necessário no futuro)
- * Aqui usamos apenas para formatação
- */
-
-
+   const day = now.getDate().toString().padStart(2, '0');
+   const month = (now.getMonth() + 1).toString().padStart(2, '0')
+   const year = now.getFullYear()
 /** Retorna apenas a data e hora (sem saudação) */
+   return `${dayWeek}, ${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`
 
+
+}
 
 
 /* Função que atualiza o cabeçalho com a saudação e a data/hora atual */
 
+
+const updateHeader = () => {
+    const greeting = getGreeting()
+    const dateTime = formatDateTime()
+    
+    displaySaudacao.textContent = greeting
+    elementoDataeHora.textContent = dateTime
+}
+
 /* Atualizar header a cada segundo */
 
+// setInterval utilizamos para executar uma funcao a cada intervalo de tempo definido em milissegundos
+setInterval(updateHeader, 1000)
 
 /* Inicializar header */
 
@@ -156,3 +201,7 @@ Utiliza vários métodos do objeto Date para obter os componentes da data */
   
 
 /* Adiciona o event listener para o botão de limpar */
+
+
+
+

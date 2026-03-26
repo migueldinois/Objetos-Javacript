@@ -23,7 +23,7 @@
     <!-- Cabeçalho dinamico que exibe data e hora e a mensagem de saudacao -->
     <header class="app-pwd__header">
         <span class="app-pwd__datetime"></span>
-        <span class="app-pwd__welcomel"></span>
+        <span class="app-pwd__welcome"></span>
     </header>
     <!-- Seção principal que contem todos os elementos interativos do app gerador de senhas -->
     <section class="app-pwd__main">
@@ -55,6 +55,10 @@
                     <input type="checkbox" class="app-pwd__checkbox special-check" name="special" checked>
                     Caracteres especiais (!@#$%&*)
                 </label>
+            </div>
+            <div class="app-pwd__button-container">
+                <button class="app-pwd__button">Gerar nova senha</button>
+                <button class="app-pwd__button app-pwd__button--clear">Limpar</button>
             </div>
         </div>
         <!-- Container que exibe a senha gerada e permite cópia -->
