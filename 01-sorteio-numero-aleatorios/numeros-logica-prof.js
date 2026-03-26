@@ -17,11 +17,9 @@ const mensagem = document.querySelector('.area__mensagem')
 historicoNumeros = []
 
 
-
-
 const validarInputs = () => {
     if (sliderMin.value >= sliderMax.value) {
-        mensagem.textContent = 'O Valor Minimo deve ser menor que o Valor Maximo'
+        mensagem.textContent = 'O Valor Minimo deve ser menor que o Valor Maximo (Ajuste automatico aplicado!)'
         return false
     }
     else {
@@ -33,11 +31,11 @@ const validarInputs = () => {
 
 // COMECO LOGICA ATUALIZAR VALOR SLIDE
 const atualizarValorSlider = () => {
+
     spanValorMin.textContent = sliderMin.value
     spanValorMax.textContent = sliderMax.value
 }
-sliderMin.addEventListener('input', atualizarValorSlider)
-sliderMax.addEventListener('input', atualizarValorSlider)
+
 atualizarValorSlider()
 // FIM LOGICA ATUALIZAR VALOR SLIDE
 
@@ -97,7 +95,7 @@ botaoSortear.addEventListener('click', () => {
         atualizandoListaHistorico(historicoNumeros, numeroSorteado, quantidadeNumerosRecentes);
 
         listaNumeros.innerHTML = ''; 
-
+        // Pegando os items da lista e adiconando ao historico 
         historicoNumeros.forEach((numero) => {
             const itemListaHistorico = adicionarHistorico(numero);
             listaNumeros.appendChild(itemListaHistorico);
@@ -105,3 +103,20 @@ botaoSortear.addEventListener('click', () => {
     }
 });
 
+// Resolução do desafio
+
+
+const validarIntervalo = () => {
+    if (sliderMin.value >= sliderMax.value){
+        sliderMax.value = sliderMin.value
+        atualizarValorSlider()
+        mensagem.textContent = 'O Valor Minimo deve ser menor que o Valor Maximo (Ajuste automatico aplicado!)'
+    } else {
+        atualizarValorSlider()
+        mensagem.textContent = ''
+    }
+    
+}
+
+sliderMin.addEventListener('input', validarIntervalo)
+sliderMax.addEventListener('input', validarIntervalo)
