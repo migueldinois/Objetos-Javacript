@@ -21,6 +21,9 @@ const elementoDataeHora = document.querySelector('.app-pwd__datetime')
 
 
 
+
+
+
 // Objeto que contém os conjuntos de caracteres possíveis para a geração de senha
 
 const charsets =  {
@@ -69,7 +72,7 @@ const formatDateTime = () => {
    const hours = now.getHours()
 //  Formata os minutos para sempre ter dois numeros com o 0 na frente entre 0 e 9
    const minutes = now.getMinutes().toString().padStart(2, '0')
-   const seconds = now.getSeconds()
+   const seconds = now.getSeconds().toString().padStart(2, '0')
 // Array com os nomes dos dias da semana 
    const daysWeek = [
     'Domingo',
@@ -90,8 +93,6 @@ const formatDateTime = () => {
    const year = now.getFullYear()
 /** Retorna apenas a data e hora (sem saudação) */
    return `${dayWeek}, ${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`
-
-
 }
 
 
@@ -110,21 +111,56 @@ const updateHeader = () => {
 
 // setInterval utilizamos para executar uma funcao a cada intervalo de tempo definido em milissegundos
 setInterval(updateHeader, 1000)
-
-/* Inicializar header */
+updateHeader()
 
 
 /* Exibe inicialmente o valor do slider*/
 
+controleDeslizante.value = 12
 
 /* Atualiza o valor exibido do tamanho da senha conforme o slider é movimentado */
 
+const updateValueOfSlider = () => {
+   tamanhoSenha.textContent = controleDeslizante.value
+}
+
+controleDeslizante.addEventListener('input', updateValueOfSlider)
+updateValueOfSlider()
 
 /* Função principal para gerar a senha */
 
-// String que armazenará todos os caracteres possíveis para a senha
+const generatePassword = () => {
+   lettersUpper = false
+   lettersLower = false
+   numbers = false 
+   charactersSpecials = false
+   const selectedInputs = []
+   /* Obter os checkboxes selecionados */
+   const checkedInputs = document.querySelectorAll('input[type="checkbox"]:checked');
+   
+   checkedInputs.forEach((checkbox) => {
 
-  /* Obter os checkboxes selecionados */
+      if (checkbox.className == 'app-pwd__checkbox uppercase-check') {lettersUpper = true}
+      else if (checkbox.className == 'app-pwd__checkbox lowercase-check') {lettersLower = true}
+      else if (checkbox.className == 'app-pwd__checkbox numbers-check') {numbers = true}
+      else if (checkbox.className == 'app-pwd__checkbox special-check') {charactersSpecials = true}
+      // Retornando os checados para geracao
+
+
+   })
+   
+   console.log(lettersUpper, lettersLower, numbers, charactersSpecials)
+
+   // String que armazenará todos os caracteres possíveis para a senha
+
+
+
+
+
+}
+
+
+  
 
 
 
@@ -177,17 +213,43 @@ setInterval(updateHeader, 1000)
   
 
 /* Função para copiar a senha gerada para a área de transferência */
-
-  // Exibe um alerta de sucesso
- // Copia a senha usando a API Clipboard
+const copyPassword = () => {
+   // Exibe um alerta de sucesso
+   alert('Senha copida')
+   // Copia a senha usando a API Clipboard
+   navigator.clipboard.writeText(newPassword)
+}
 
 
 /* Adicionar os event listeners para os eventos de clique */
  // Gera nova senha
+ btnGerarSenha.addEventListener('click', generatePassword)
+ containerSenha.addEventListener('click', copyPassword)
   // Copia a senha
 
 /* Função para limpar os dados e esconder os containers */
 
+   const clearData = () => {
+      historyPassword = []
+      newPassword = ''
+
+      containerSenha.classList.add('hide')
+      const history = document.querySelector('.app-pwd__history')
+      if (history) {
+         history.style.display = 'none'
+      }
+
+      const checkedInputs = document.querySelectorAll('input[type="checkbox"]:checked');
+      checkedInputs.forEach((checkbox) => {
+         checkbox.check = true
+      })
+
+      controleDeslizante.value = 8
+      tamanhoSenha.textContent = '8'
+      
+      
+
+   }
   // Limpa o histórico de senhas
  
 
@@ -201,6 +263,7 @@ setInterval(updateHeader, 1000)
   
 
 /* Adiciona o event listener para o botão de limpar */
+btnLimparHistorico.addEventListener('click', clearData)
 
 
 
