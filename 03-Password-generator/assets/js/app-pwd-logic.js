@@ -168,6 +168,7 @@ const generatePassword = () => {
    newPassword = randomCharacters(passCharacters, controleDeslizante.value)
 
    return newPassword
+
 }
 
 // Funcao para exibir senha
@@ -191,7 +192,7 @@ const showPassword = () => {
       history.style.display = 'block'
    }
 
-
+   history.querySelector('.app-pwd__history-list').innerHTML = passwordHistory.map(senha => `<li class="app-pwd__history-item">${senha}</li>`).join('')
 }
 
 
@@ -232,8 +233,8 @@ containerSenha.addEventListener('click', copyPassword)
 /* Função para limpar os dados e esconder os containers */
 
 const clearData = () => {
-   historyPassword = []
-   newPassword = ''
+   passwordHistory = ''
+   currentPassword = ''
 
    containerSenha.classList.add('hide')
    const history = document.querySelector('.app-pwd__history')
