@@ -5,8 +5,15 @@ const dateContainer = document.createElement('div')
 const hourContainer = document.createElement('div')
 const dayOfWeekContainer = document.createElement('div')
 
+
 // Adicionando o containenr principal no bodyy
-document.body.append(dateContainer, hourContainer, dayOfWeekContainer)
+function createElement(elemento) {
+    document.body.append(elemento)
+}
+
+createElement(dateContainer)
+createElement(hourContainer)
+createElement(dayOfWeekContainer)
 
 // Funcoes para logica  
 

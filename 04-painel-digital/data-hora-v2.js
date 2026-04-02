@@ -1,53 +1,111 @@
 
 // HTML, e estilizacao:
 
-const dateContainer = document.createElement('div')
+const greetingMessage = document.createElement('div')
 const hourContainer = document.createElement('div')
 const dayOfWeekContainer = document.createElement('div')
+const buttonsDiv = document.createElement('div')
+
+// Botoes
+const darkModeButton = document.createElement('button')
+const lightModeButton = document.createElement('button')
+
+// Horas e datas
+const now = new Date();
+const weekDay = now.toLocaleString('pt-br', {weekday: 'long'})
+const day = now.toLocaleString('pt-br', {day:'2-digit'})
+const month = now.toLocaleString('pt-br', {month:'long'})
+const year = now.toLocaleString('pt-br', {year:'numeric'})
+
 
 // Adicionando o containenr principal no bodyy
-document.body.append(dateContainer, hourContainer, dayOfWeekContainer)
-
-// Funcoes para logica  
-
- function updateTimer() {
-    const now = new Date();
-    const weekDay = now.toLocaleString('pt-br', {weekday: 'long'})
-    const day = now.toLocaleString('pt-br', {day:'2-digit'})
-    const month = now.toLocaleString('pt-br', {month:'long'})
-    const year = now.toLocaleString('pt-br', {year:'2-digit'})
-    dateContainer.textContent = now.toLocaleDateString()
-    hourContainer.textContent = now.toLocaleTimeString()
-    dayOfWeekContainer.textContent = `${weekDay}, `
-    
- }
-
- updateTimer()
- setInterval(updateTimer, 1000)
-
-//  
-
-function applyStyles() {
-    const bodyTag = document.body.style;
-    bodyTag.display = 'flex';
-    bodyTag.justifyContent = 'center';
-    bodyTag.alignItems = 'center';
-    bodyTag.flexDirection = 'column';
-    bodyTag.height = '100vh';
-    bodyTag.fontSize = '40px';
-    bodyTag.backgroundColor = 'blue';
-    bodyTag.color = 'red';
+function createElement(elemento) {
+    document.body.append(elemento)
 }
 
-applyStyles()
+createElement(greetingMessage)
+createElement(hourContainer)
+createElement(dayOfWeekContainer)
+createElement(buttonsDiv)
+buttonsDiv.appendChild(darkModeButton)
+buttonsDiv.appendChild(lightModeButton)
+
+// Estilos
+// 1. Objeto de Estilos (Dicionário CSS)
+const temas = {
+    corpo: {
+        backgroundColor: '#121212',
+        color: '#00ff99',
+        fontFamily: "'Courier New', Courier, monospace",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        margin: '0',
+        textShadow: '0 0 10px rgba(0, 255, 153, 0.5)'
+    },
+    boasVindas: {
+        fontSize: '24px',
+        marginBottom: '10px',
+        textTransform: 'uppercase',
+        letterSpacing: '2px'
+    },
+    relogio: {
+        fontSize: '100px',
+        fontWeight: 'bold'
+    },
+    dataInfo: {
+        fontSize: '20px',
+        marginTop: '10px',
+        color: '#ffffff',
+        opacity: '0.8'
+    }
+};
+
+
+// Funcoes para logica  
 
 function getGreeting() {
     // Criando objeto data
     const now = new Date()
     const hours = now.getHours()
- 
+
     if (hours < 12) { return 'Bom dia' }
     if (hours < 18) { return 'Boa tarde' }
-    if (hours > 18) { return 'Boa noite' }
- }
- 
+    if (hours >= 18) { return 'Boa noite' }
+}
+
+
+function updateTimer() {
+    const now = new Date();
+
+    hourContainer.textContent = now.toLocaleTimeString()
+
+
+}
+
+function updateAll() {
+
+    greetingMessage.textContent = `Olá, ${getGreeting()}`
+    dayOfWeekContainer.textContent = `${weekDay}, ${day} de ${month} de ${year} `
+}
+
+updateAll()
+updateTimer()
+setInterval(updateTimer, 1000)
+
+//  
+
+function applyStyles(elemento, estilo) {
+    Object.assign(elemento.style, estilo);
+}
+
+
+
+applyStyles(document.body, temas.corpo)
+
+
+applyStyles(greetingMessage, temas.boasVindas);
+applyStyles(hourContainer, temas.relogio);
+applyStyles(dayOfWeekContainer, temas.dataInfo);
