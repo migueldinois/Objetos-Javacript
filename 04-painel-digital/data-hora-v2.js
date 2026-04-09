@@ -31,7 +31,6 @@ buttonsDiv.appendChild(darkModeButton)
 buttonsDiv.appendChild(lightModeButton)
 
 // Estilos
-// 1. Objeto de Estilos (Dicionário CSS)
 const temas = {
     corpo: {
         backgroundColor: '#121212',

@@ -18,10 +18,10 @@ const config = {
 
 // Horas e datas
 const now = new Date();
-const weekDay = now.toLocaleString(config.idioma, {weekday: 'long'})
-const day = now.toLocaleString(config.idioma, {day:'2-digit'})
-const month = now.toLocaleString(config.idioma, {month:'long'})
-const year = now.toLocaleString(config.idioma, {year:'numeric'})
+const weekDay = now.toLocaleString(config.idioma, { weekday: 'long' })
+const day = now.toLocaleString(config.idioma, { day: '2-digit' })
+const month = now.toLocaleString(config.idioma, { month: 'long' })
+const year = now.toLocaleString(config.idioma, { year: 'numeric' })
 
 
 
@@ -39,7 +39,7 @@ buttonsDiv.appendChild(lightModeButton)
 
 // Estilos
 // 1. Objeto de Estilos (Dicionário CSS)
-const temas = {
+const darkTheme = {
     corpo: {
         backgroundColor: '#121212',
         color: '#00ff99',
@@ -67,13 +67,22 @@ const temas = {
         marginTop: '10px',
         color: '#ffffff',
         opacity: '0.8'
+    },
+    botao: {
+        marginTop: '20px',
+        padding: '10px',
+        backgroundColor: '#00844f',
+        color: 'black',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
     }
 };
 
 const lightTheme = {
     corpo: {
-        backgroundColor: '#121212',
-        color: '#00ff99',
+        backgroundColor: '#ffffff',
+        color: '#222222',
         fontFamily: "'Courier New', Courier, monospace",
         display: 'flex',
         flexDirection: 'column',
@@ -81,24 +90,35 @@ const lightTheme = {
         justifyContent: 'center',
         height: '100vh',
         margin: '0',
-        textShadow: '0 0 10px rgba(0, 255, 153, 0.5)'
+        textShadow: '0 0 5px rgba(0, 0, 0, 0.1)'
     },
     boasVindas: {
         fontSize: '24px',
         marginBottom: '10px',
         textTransform: 'uppercase',
-        letterSpacing: '2px'
+        letterSpacing: '2px',
+        color: '#333333'
     },
     relogio: {
         fontSize: '100px',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#111111'
     },
     dataInfo: {
         fontSize: '20px',
         marginTop: '10px',
-        color: '#ffffff',
-        opacity: '0.8'
-    } 
+        color: '#555555',
+        opacity: '0.9'
+    },
+    botao: {
+        marginTop: '20px',
+        padding: '10px',
+        backgroundColor: '#00c073',
+        color: 'black',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+    }
 }
 
 
@@ -139,11 +159,32 @@ function applyStyles(elemento, estilo) {
     Object.assign(elemento.style, estilo);
 }
 
+function darkModeAction() {
+    applyStyles(document.body, darkTheme.corpo)
+    applyStyles(greetingMessage, darkTheme.boasVindas);
+    applyStyles(hourContainer, darkTheme.relogio);
+    applyStyles(dayOfWeekContainer, darkTheme.dataInfo);
+
+}
+function lightModeAction() {
+    applyStyles(document.body, lightTheme.corpo)
+    applyStyles(greetingMessage, lightTheme.boasVindas);
+    applyStyles(hourContainer, lightTheme.relogio);
+    applyStyles(dayOfWeekContainer, lightTheme.dataInfo);
+}
 
 
-applyStyles(document.body, temas_escuro.corpo)
+// Estilizando os botoes
+applyStyles(darkModeButton, darkTheme.botao)
+darkModeButton.textContent = 'Modo escuro'
 
+applyStyles(lightModeButton, lightTheme.botao)
+lightModeButton.textContent = 'Modo claro'
 
-applyStyles(greetingMessage, temas_escuro.boasVindas);
-applyStyles(hourContainer, temas_escuro.relogio);
-applyStyles(dayOfWeekContainer, temas_escuro.dataInfo);
+buttonsDiv.style.display = 'flex'
+buttonsDiv.style.gap = '20px'
+
+darkModeButton.addEventListener('click', darkModeAction)
+lightModeButton.addEventListener('click', lightModeAction)
+
+darkModeAction()
